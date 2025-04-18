@@ -11,7 +11,7 @@ echo "\
 headless = true
 enableCORS = true
 enableXsrfProtection = false
-port = \$PORT
+port = ${PORT}
 " > ~/.streamlit/config.toml
 
 streamlit run ozilly.py
