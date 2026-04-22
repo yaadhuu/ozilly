@@ -12,13 +12,13 @@ st.set_page_config(page_title="Ozilly | Premium Cinematic Discovery", layout="wi
 # --- Custom CSS for Award-Winning UI ---
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap');
 
     /* Reset & Dark Theme */
     .stApp {
         background-color: #000000;
         color: #ffffff;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: 'Space Grotesk', sans-serif;
     }
     
     /* Hide Streamlit elements */
@@ -26,29 +26,33 @@ st.markdown("""
     
     /* Typography */
     h1, h2, h3 {
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.03em;
     }
     
     .hero-title {
-        font-size: 4.5rem;
+        font-family: 'Syne', sans-serif;
+        font-size: 7.5rem;
         color: #ffffff;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0rem;
         text-align: center;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.05em;
         font-weight: 800;
+        line-height: 1.1;
+        text-transform: uppercase;
         animation: fadeInDown 0.8s ease-out;
     }
     
     .hero-subtitle {
         text-align: center;
         color: #a1a1aa;
-        font-size: 1.1rem;
-        font-weight: 400;
-        letter-spacing: 0.1em;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 300;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 4rem;
+        margin-bottom: 5rem;
         animation: fadeInUp 0.8s ease-out 0.2s both;
     }
     
@@ -58,6 +62,7 @@ st.markdown("""
         border: 1px solid #333333 !important;
         border-radius: 8px;
         transition: border-color 0.2s ease;
+        font-size: 1.2rem !important;
     }
     [data-baseweb="select"]:hover, [data-baseweb="select"]:focus-within {
         border-color: #ffffff !important;
@@ -69,9 +74,12 @@ st.markdown("""
         color: #000000;
         border: 1px solid #ffffff;
         border-radius: 8px;
-        padding: 0.75rem 2rem;
-        font-size: 1rem;
+        padding: 1rem 2.5rem;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;
         font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
         transition: all 0.2s ease;
         width: 100%;
     }
@@ -79,7 +87,7 @@ st.markdown("""
         background-color: #e5e5e5;
         border-color: #e5e5e5;
         color: #000000;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
     }
     
     /* Movie Cards */
@@ -100,15 +108,16 @@ st.markdown("""
     }
     
     .movie-card-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.9rem;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.15rem;
         font-weight: 500;
         color: #e4e4e7;
-        margin-top: 10px;
+        margin-top: 15px;
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        letter-spacing: -0.01em;
     }
     
     /* Expanders */
@@ -117,6 +126,8 @@ st.markdown("""
         background: #09090b !important;
         border-radius: 8px !important;
         margin-top: -8px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.1rem;
     }
     
     /* Animations */
@@ -130,13 +141,15 @@ st.markdown("""
     }
     
     .section-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-top: 3.5rem;
-        margin-bottom: 1.5rem;
+        font-family: 'Syne', sans-serif;
+        font-size: 3rem;
+        font-weight: 800;
+        margin-top: 4.5rem;
+        margin-bottom: 2rem;
         border-bottom: 1px solid #27272a;
-        padding-bottom: 0.75rem;
+        padding-bottom: 1rem;
         color: #ffffff;
+        letter-spacing: -0.03em;
     }
 </style>
 """, unsafe_allow_html=True)
