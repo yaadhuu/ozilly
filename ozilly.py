@@ -12,14 +12,13 @@ st.set_page_config(page_title="Ozilly | Premium Cinematic Discovery", layout="wi
 # --- Custom CSS for Award-Winning UI ---
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     /* Reset & Dark Theme */
     .stApp {
-        background-color: #0b0b0f;
-        background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #0b0b0f 70%);
+        background-color: #000000;
         color: #ffffff;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     
     /* Hide Streamlit elements */
@@ -27,83 +26,85 @@ st.markdown("""
     
     /* Typography */
     h1, h2, h3 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Inter', sans-serif;
         font-weight: 700;
+        letter-spacing: -0.02em;
     }
     
     .hero-title {
-        font-size: 5rem;
-        background: linear-gradient(90deg, #ff3366, #ff9933);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0;
+        font-size: 4.5rem;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
         text-align: center;
-        letter-spacing: -2px;
-        animation: fadeInDown 1s ease-out;
+        letter-spacing: -0.04em;
+        font-weight: 800;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     .hero-subtitle {
         text-align: center;
-        color: #a0a0b8;
-        font-size: 1.2rem;
-        font-weight: 300;
-        letter-spacing: 4px;
+        color: #a1a1aa;
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        margin-bottom: 3rem;
-        animation: fadeInUp 1s ease-out 0.2s both;
+        margin-bottom: 4rem;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
     }
     
     /* Search Bar */
     [data-baseweb="select"] {
-        background-color: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 12px;
-        backdrop-filter: blur(10px);
+        background-color: #0a0a0a !important;
+        border: 1px solid #333333 !important;
+        border-radius: 8px;
+        transition: border-color 0.2s ease;
     }
-    [data-baseweb="select"]:hover {
-        border-color: rgba(255, 51, 102, 0.5) !important;
+    [data-baseweb="select"]:hover, [data-baseweb="select"]:focus-within {
+        border-color: #ffffff !important;
     }
     
     /* Buttons */
     div.stButton > button {
-        background: linear-gradient(135deg, #ff3366, #ff6b33);
-        color: white;
-        border: none;
-        border-radius: 30px;
-        padding: 0.75rem 2.5rem;
-        font-size: 1.1rem;
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #ffffff;
+        border-radius: 8px;
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
         font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+        transition: all 0.2s ease;
         width: 100%;
     }
     div.stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px rgba(255, 51, 102, 0.4);
-        color: white;
+        background-color: #e5e5e5;
+        border-color: #e5e5e5;
+        color: #000000;
+        transform: translateY(-1px);
     }
     
     /* Movie Cards */
     [data-testid="stImage"] {
-        border-radius: 12px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         cursor: pointer;
         object-fit: cover;
         aspect-ratio: 2/3;
+        border: 1px solid rgba(255,255,255,0.05);
     }
     [data-testid="stImage"]:hover {
-        transform: scale(1.05) translateY(-10px);
-        box-shadow: 0 25px 45px rgba(255, 51, 102, 0.3);
+        transform: scale(1.03) translateY(-4px);
+        box-shadow: 0 12px 30px rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.15);
         z-index: 10;
     }
     
     .movie-card-title {
         font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #e2e8f0;
-        margin-top: 12px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #e4e4e7;
+        margin-top: 10px;
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -112,31 +113,30 @@ st.markdown("""
     
     /* Expanders */
     [data-testid="stExpander"] {
-        border: 1px solid rgba(255,255,255,0.05) !important;
-        background: rgba(20, 20, 30, 0.6) !important;
-        border-radius: 12px !important;
-        backdrop-filter: blur(10px);
-        margin-top: -10px;
+        border: 1px solid #27272a !important;
+        background: #09090b !important;
+        border-radius: 8px !important;
+        margin-top: -8px;
     }
     
     /* Animations */
     @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
+        from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
     
     .section-title {
-        font-size: 2.5rem;
-        font-family: 'Playfair Display', serif;
-        margin-top: 4rem;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid rgba(255,255,255,0.1);
-        padding-bottom: 1rem;
-        display: inline-block;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #27272a;
+        padding-bottom: 0.75rem;
+        color: #ffffff;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -220,7 +220,7 @@ def display_movie_grid(titles, posters, movie_details):
                     poster = posters[i + idx]
                     details = movie_details[i + idx]
                     
-                    st.image(poster, use_container_width=True)
+                    st.image(poster, width='stretch')
                     st.markdown(f"<div class='movie-card-title'>{title}</div>", unsafe_allow_html=True)
                     
                     # Expandable details
