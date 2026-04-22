@@ -1,6 +1,9 @@
-similarity.pkl
-*.log
-.idea/
+*.pkl
+!movie_dict.pkl
+model/
 __pycache__/
+.idea/
 .streamlit/
-run.py
+*.log
+*.txt
+!requirements.txt
