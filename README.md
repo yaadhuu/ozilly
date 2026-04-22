@@ -1,4 +1,5 @@
-# Ozilly | Machine Learning Movie Recommendation Engine 🎬
+# Ozilly | Machine Learning Movie Recommendation Engine
+
 
 **Ozilly** is a highly optimized, AI-powered content recommendation system. Built to demonstrate proficiency in Machine Learning, Data Engineering, and Full-Stack deployment, this project leverages vectorization and cosine similarity to deliver highly accurate, personalized cinematic suggestions in real-time.
 
