@@ -1,0 +1,6 @@
+similarity.pkl
+*.log
+.idea/
+__pycache__/
+.streamlit/
+run.py
