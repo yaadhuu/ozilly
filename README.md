@@ -1,66 +1,140 @@
-# Ozilly | Machine Learning Movie Recommendation Engine
+# 🎬 Ozilly
 
+> **Your personal movie recommender. Netflix vibes, cosine similarity under the hood.**  
+> Type a movie. Hit recommend. Get 18 handpicked suggestions instantly — pulled from a pre-computed ML similarity matrix and enriched with live TMDB posters and metadata.
 
-**Ozilly** is a highly optimized, AI-powered content recommendation system. Built to demonstrate proficiency in Machine Learning, Data Engineering, and Full-Stack deployment, this project leverages vectorization and cosine similarity to deliver highly accurate, personalized cinematic suggestions in real-time.
+<p align="center">
+  <a href="https://weds2isikahulmykbeldox.streamlit.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀 Live Demo-Streamlit Cloud-E50914?style=for-the-badge" alt="Live Demo"/>
+  </a>
+</p>
 
-**🟢 Live Deployment:** [weds2isikahulmykbeldox.streamlit.app](https://weds2isikahulmykbeldox.streamlit.app/)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TMDB_API-01D277?style=for-the-badge&logo=themoviedatabase&logoColor=white"/>
+  <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
+</p>
 
 ---
 
-## 🧠 Machine Learning & Architecture
-The core recommendation engine relies on Natural Language Processing (NLP) and content-based filtering.
-- **Feature Engineering & NLP:** Processed metadata (genres, keywords, cast, crew) using `CountVectorizer` / `TfidfVectorizer` to convert text data into a multidimensional vector space.
-- **Dimensionality & Similarity Matrix:** Computed the **Cosine Similarity** between movie vectors to mathematically determine content overlap, resulting in a pre-computed `184MB` similarity matrix.
-- **O(1) Matrix Lookups:** The Streamlit application loads the pre-computed similarity matrix into memory via `pickle`, allowing for O(1) index lookups and instant recommendation sorting.
+## ⚙️ How It Works
+
+Ozilly is a **content-based filtering** recommendation engine. It doesn't need ratings or user history — it understands movies by their content.
+
+```
+Movie Input
+    │
+    ▼
+NLP Feature Engineering
+(genres + keywords + cast + crew → CountVectorizer / TfidfVectorizer)
+    │
+    ▼
+184MB Cosine Similarity Matrix  ←── pre-computed & stored as similarity.pkl
+    │
+    ▼
+O(1) Index Lookup → Top 18 most similar movies
+    │
+    ▼
+Parallel TMDB API calls (ThreadPoolExecutor) → Posters + Metadata
+    │
+    ▼
+Streamlit UI renders a 6-column movie grid
+```
+
+### Key Engineering Decisions
+
+**Parallel API fetching** — Instead of firing TMDB requests one by one (~8s), `ThreadPoolExecutor` fires them all concurrently, bringing fetch time down to under 1 second.
+
+**Cloud model streaming** — The 184MB `similarity.pkl` is too large for GitHub. On first run, `gdown` streams it directly from Google Drive into the app runtime. Repo stays lightweight; model is always available.
+
+**`st.cache_data` / `st.cache_resource`** — Streamlit memoization ensures the model and movie dataframe are loaded once into memory. No redundant disk reads on re-renders.
 
 ---
 
-## 🛠 Complete Tech Stack
+## ✨ Features
 
-### Data Science & Machine Learning
-- **Python (3.9+)**: Core programming language.
-- **Scikit-Learn**: Used for NLP text vectorization and computing the Cosine Similarity matrix.
-- **Pandas**: Utilized for massive dataset cleaning, preprocessing, and DataFrame manipulation.
-- **NumPy**: Employed for high-performance array operations and matrix sorting.
+| Feature | Details |
+|---|---|
+| 🎯 Content-Based Recommendations | 18 results per search, ranked by cosine similarity score |
+| 🎞️ Searchable Dropdown | Type-ahead select across the full movie dataset |
+| 🖼️ Live Poster Fetching | High-res posters pulled from TMDB API in real time |
+| 📋 Movie Detail Expanders | Release date, overview, and rating per recommendation |
+| 🎲 Explore Mode | Random 18-movie grid on load + "Load More" to reshuffle |
+| 🎨 Custom Netflix-Style UI | CSS-injected dark theme with Roboto typography and red gradient branding |
 
-### Software Engineering & Backend
-- **RESTful API Integration**: Integrated with the **TMDB API** to fetch live metadata and high-resolution posters.
-- **Concurrent Execution**: Implemented Python's `ThreadPoolExecutor` to perform asynchronous, parallel HTTP requests, dropping the API fetching time from ~8 seconds to < 1 second.
-- **Cloud Data Streaming**: Implemented `gdown` to dynamically stream the massive `184MB` machine learning model from Google Drive directly into the app runtime, bypassing GitHub's strict file size limitations (LFS constraints).
+---
 
-### Frontend & Deployment
-- **Streamlit**: Engineered the frontend interface with Python, utilizing `st.cache_data` and `st.cache_resource` for memoization and efficient state management.
-- **Custom CSS/HTML Injection**: Overrode default Streamlit styling with advanced CSS to create a premium, minimalist (Space Grotesk & Syne typography) user interface.
-- **Streamlit Community Cloud**: Automated CI/CD pipeline for live deployment straight from the GitHub repository.
+## 🗂️ Project Structure
+
+```
+ozilly/
+├── ozilly.py          # Main Streamlit app — UI, recommendation logic, API calls
+├── movie_dict.pkl     # Pickled movie DataFrame (titles + movie IDs)
+├── model/             # ML model artifacts (notebook + preprocessing scripts)
+├── requirements.txt   # Python dependencies
+├── setup.sh           # Streamlit Cloud deployment config (headless server setup)
+└── .gitignore         # Excludes similarity.pkl (184MB — streamed from Drive at runtime)
+```
+
+> `similarity.pkl` is **not in the repo** — it's auto-downloaded from Google Drive on first run via `gdown`. This is by design to keep the repo under GitHub's file size limits.
 
 ---
 
 ## 🚀 Running Locally
 
-### Prerequisites
-- Python 3.9+
-- A TMDB API Key
+**Prerequisites:** Python 3.9+, a TMDB API key
 
-### Installation
+```bash
+# 1. Clone
+git clone https://github.com/yaadhuu/ozilly.git
+cd ozilly
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yaadhuu/ozilly.git
-   cd ozilly
-   ```
+# 2. Install dependencies
+python -m pip install -r requirements.txt
 
-2. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# 3. Run
+streamlit run ozilly.py
+```
 
-3. **Run the Application**
-   ```bash
-   streamlit run ozilly.py
-   ```
-   *Note: On first initialization, the application will automatically download the required ML similarity model via Google Drive. This ensures your local repository remains lightweight.*
+> On first launch, the app will automatically download `similarity.pkl` (~184MB) from Google Drive. This only happens once — subsequent runs load from disk.
 
 ---
 
-## 📝 License
-This project is open-source and available under the MIT License.
+## 📦 Dependencies
+
+```
+streamlit       # Frontend framework
+pandas          # Dataset handling
+numpy           # Matrix operations
+scikit-learn    # TF-IDF vectorization + cosine similarity
+requests        # TMDB API calls
+gdown           # Google Drive model download
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tech |
+|---|---|
+| ML / NLP | scikit-learn — CountVectorizer / TfidfVectorizer, Cosine Similarity |
+| Data Processing | pandas, NumPy |
+| Frontend | Streamlit + custom CSS/HTML injection |
+| Movie Metadata | TMDB REST API |
+| Model Distribution | Google Drive + gdown |
+| Concurrency | Python `concurrent.futures.ThreadPoolExecutor` |
+| Deployment | Streamlit Community Cloud (CI/CD via GitHub) |
+
+---
+
+## 📌 About
+
+Built by **Yeadhu Krishna** — [github.com/yaadhuu](https://github.com/yaadhuu)  
+📧 yeadhukrishna.p@gmail.com  
+📄 MIT License
+
+---
+
+<p align="center">Find your next favorite film. 🎬</p>
